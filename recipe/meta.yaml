@@ -11,23 +11,25 @@ source:
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: "{{ PYTHON }} -m pip install . -vv"
   entry_points:
     - livy = livy_submit.cli:cli
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - pexpect  
     - python-hdfs
     - requests
     - requests-kerberos
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - livy_submit
     - livy_submit.cli
